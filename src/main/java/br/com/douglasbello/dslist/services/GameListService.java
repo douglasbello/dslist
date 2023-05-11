@@ -22,4 +22,5 @@ public class GameListService {
         List<GameList> list = repository.findAll();
         return list.stream().map(GameListDTO::new).toList();
     }
+
 }

@@ -3,6 +3,7 @@ package br.com.douglasbello.dslist.services;
 import java.util.List;
 
 import br.com.douglasbello.dslist.dto.GameDTO;
+import br.com.douglasbello.dslist.projections.GameMinProjection;
 import org.springframework.stereotype.Service;
 
 import br.com.douglasbello.dslist.dto.GameMinDTO;
@@ -28,6 +29,12 @@ public class GameService {
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll() {
         List<Game> result = gameRepository.findAll();
+        return result.stream().map(GameMinDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
         return result.stream().map(GameMinDTO::new).toList();
     }
 }
